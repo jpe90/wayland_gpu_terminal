@@ -22,7 +22,6 @@
 
 #include <stdint.h>
 
-#include <cglm/cglm.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 

@@ -1,6 +1,5 @@
 WAYLAND_FLAGS = `pkg-config wayland-client wayland-egl --cflags --libs`
 GL_FLAGS = `pkg-config egl glesv2 --cflags --libs`
-CGLM_FLAGS = `pkg-config cglm --cflags --libs`
 FT_FLAGS = `pkg-config freetype2 --cflags --libs`
 XKB_FLAGS = `pkg-config xkbcommon --cflags --libs`
 WAYLAND_PROTOCOLS_DIR = `pkg-config wayland-protocols --variable=pkgdatadir`
