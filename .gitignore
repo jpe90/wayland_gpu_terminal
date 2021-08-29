@@ -56,5 +56,5 @@ dkms.conf
 /xdg-shell-protocol.c
 /cat.h
 .compile_commands.json
-./gl_text
-cache/
+gl_text
+.cache/
