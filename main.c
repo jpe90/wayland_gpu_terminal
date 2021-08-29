@@ -932,14 +932,7 @@ int read_shell_input(int fd, struct render_data *render_data) {
 	return -1;
 }
 
-int main(int argc, char *argv[]) {
-	struct display display;
-	display_connect(&display);
-	wl_list_init(&display.seats);
-	struct wl_registry *registry = wl_display_get_registry(display.wl_display);
-	if(wl_initialize_compositor(registry,&display) > 0) {
-		fprintf(stderr,"error initializing compositor\n");
-	}
+void init_egl_struct (struct egl *egl) {
 	EGLint major = 0, minor = 0, n = 0;
 	EGLint config_attribs[] = {
 		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -954,8 +947,20 @@ int main(int argc, char *argv[]) {
 	EGLint context_attribs[] = {
 		EGL_CONTEXT_CLIENT_VERSION, 2,
 		EGL_NONE,
-	};
-	struct egl egl  = {&major,&minor,&n,&egl_config,config_attribs,context_attribs};
+	}
+	*egl = {&major,&minor,&n,&egl_config,config_attribs,context_attribs};
+};
+
+int main(int argc, char *argv[]) {
+	struct display display;
+	display_connect(&display);
+	wl_list_init(&display.seats);
+	struct wl_registry *registry = wl_display_get_registry(display.wl_display);
+	if(wl_initialize_compositor(registry,&display) > 0) {
+		fprintf(stderr,"error initializing compositor\n");
+	}
+	struct egl egl;
+	init_egl_struct(&egl);
 	wl_initialize_egl(&display,&egl);
 	wl_init_surface(&display);
 	wl_surface_commit(display.wl_surface);
